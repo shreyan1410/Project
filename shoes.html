@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Shoes</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+/* SAME TOP BAR */
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:10px 30px;
+background:linear-gradient(90deg,#5f9cff,#d946ef);
+}
+
+.left-icons span{
+color:white;
+font-size:28px;
+margin-right:15px;
+cursor:pointer;
+}
+
+.right-icons img{
+width:35px;
+margin-left:15px;
+cursor:pointer;
+}
+
+/* SAME GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+padding:30px;
+}
+
+/* SAME CARD */
+.card{
+background:#f2f2f2;
+border-radius:20px;
+padding:15px;
+text-align:center;
+transition:0.3s;
+}
+
+.card img{
+width:100%;
+height:200px;
+object-fit:contain;
+cursor:pointer;
+}
+
+.card:hover{
+transform:translateY(-10px);
+}
+
+/* SAME PRICE */
+.card p{
+color:#ff2e7a;
+font-weight:bold;
+}
+
+/* SAME BUTTON */
+.card button{
+margin-top:10px;
+padding:12px;
+width:100%;
+border:none;
+border-radius:30px;
+background:linear-gradient(90deg,#00c6ff,#ff00cc);
+color:white;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.card button:hover{
+opacity:0.8;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+
+    <div class="left-icons">
+        <span onclick="toggleTheme()">🌙</span>
+        <span>🌐 🇮🇳</span>
+    </div>
+
+    <div class="right-icons">
+
+        <!-- HOME -->
+        <img src="https://cdn.pixabay.com/photo/2015/12/28/02/58/home-1110868_1280.png"
+             onclick="window.location.href='home.html'">
+
+        <!-- PROFILE -->
+        <img src="https://static.vecteezy.com/system/resources/previews/036/885/313/original/blue-profile-icon-free-png.png">
+
+        <!-- CART -->
+        <img src="https://cdn0.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/shopping-circle-blue-512.png"
+             onclick="window.location.href='cart.html'">
+    </div>
+
+</div>
+
+<h2 style="text-align:center;">Shoes Collection</h2>
+
+<div id="products" class="grid"></div>
+
+<script>
+
+/* SHOES PRODUCTS */
+let products = [
+
+{id:1,name:"Sport Shoe",price:699,image:"https://static.vecteezy.com/system/resources/previews/001/849/780/non_2x/close-up-of-brown-and-green-shoes-free-photo.jpg"},
+{id:2,name:"Running Shoe",price:899,image:"https://cdn.pixabay.com/photo/2016/11/19/18/06/feet-1840619_1280.jpg"},
+{id:3,name:"Color Sneaker",price:1200,image:"https://png.pngtree.com/png-clipart/20230506/original/pngtree-sneakers-full-color-shoes-png-image_9145103.png"},
+{id:4,name:"Casual Shoe",price:1500,image:"https://cdn.pixabay.com/photo/2022/10/08/17/04/shoes-7507418_1280.jpg"},
+{id:5,name:"Nike Style",price:1800,image:"https://static.vecteezy.com/system/resources/previews/022/255/712/non_2x/beautiful-shoes-generative-ai-free-photo.jpg"},
+
+/* EXTRA */
+{id:6,name:"Classic Shoe",price:1100,image:"https://5.imimg.com/data5/SELLER/Default/2025/2/486436780/QB/CX/FY/8852934/-mg-2805-500x500.jpg,1"},
+{id:7,name:"Street Wear",price:1300,image:"https://tse2.mm.bing.net/th/id/OIP.kZtViayFxou7iUJmMffcTAHaHa?pid=Api&P=0&h=180,2"},
+{id:8,name:"Premium Sneaker",price:1600,image:"https://i.pinimg.com/236x/f1/73/70/f17370572607bdf075907ebf3ffb35bd--vision-street-wear-skate.jpg,3"}
+
+];
+
+/* RENDER */
+let container=document.getElementById("products");
+
+container.innerHTML=products.map(p=>`
+<div class="card">
+<img src="${p.image}" onclick="viewProduct(${p.id})">
+<h3>${p.name}</h3>
+<p>₹${p.price}</p>
+
+<button onclick="viewProduct(${p.id})">
+View
+</button>
+
+</div>
+`).join("");
+
+/* SAME FUNCTIONS */
+function viewProduct(id){
+let product = products.find(p=>p.id==id);
+localStorage.setItem("selectedProduct",JSON.stringify(product));
+window.location="product.html";
+}
+
+function addToCart(product){
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+cart.push(product);
+localStorage.setItem("cart", JSON.stringify(cart));
+alert("✅ Successfully added to cart!");
+}
+
+function toggleTheme(){
+document.body.classList.toggle("dark");
+}
+
+</script>
+
+</body>
+</html>

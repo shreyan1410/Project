@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Product</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+body{
+font-family: Arial;
+background:#f4f4f4;
+margin:0;
+}
+
+/* MAIN */
+.container{
+display:flex;
+gap:50px;
+padding:40px;
+align-items:flex-start;
+}
+
+.left{ width:40%; }
+.right{ width:60%; }
+
+/* IMAGE */
+.product-img{
+background:#f2f2f2;
+padding:20px;
+border-radius:20px;
+text-align:center;
+}
+
+.product-img img{
+width:100%;
+max-width:350px;
+}
+
+/* BUTTON */
+.btn{
+display:block;
+margin:20px auto;
+padding:15px;
+width:200px;
+text-align:center;
+border-radius:30px;
+background:linear-gradient(90deg,#00c6ff,#ff00cc);
+color:white;
+text-decoration:none;
+cursor:pointer;
+}
+
+/* PRICE */
+.price{
+color:#ff2e7a;
+font-size:28px;
+font-weight:bold;
+}
+
+/* REVIEWS */
+.review-section{
+margin-top:30px;
+background:#f2f2f2;
+padding:20px;
+border-radius:15px;
+}
+
+.bar{
+height:10px;
+background:#ddd;
+border-radius:10px;
+margin:5px 0;
+}
+
+.fill{
+height:10px;
+background:orange;
+border-radius:10px;
+}
+
+/* GRAPH SECTION */
+.graph-box{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:30px;
+margin-top:20px;
+}
+
+.chart-card{
+background:#f2f2f2;
+padding:20px;
+border-radius:15px;
+width:350px;
+text-align:center;
+}
+
+.chart-card canvas{
+max-width:300px;
+margin:auto;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1 style="text-align:center;">Product Details</h1>
+
+<div class="container">
+
+<!-- LEFT -->
+<div class="left">
+
+<div class="product-img">
+<img id="pImg">
+</div>
+
+<a class="btn" onclick="addToCart()">Add to Cart</a>
+
+<div class="review-section">
+
+<h3>Customer Reviews</h3>
+⭐⭐⭐⭐☆ 4.3 out of 5  
+<p>16,852 global ratings</p>
+
+<p>5 star</p>
+<div class="bar"><div class="fill" style="width:62%"></div></div>
+
+<p>4 star</p>
+<div class="bar"><div class="fill" style="width:21%"></div></div>
+
+<p>3 star</p>
+<div class="bar"><div class="fill" style="width:9%"></div></div>
+
+<p>2 star</p>
+<div class="bar"><div class="fill" style="width:2%"></div></div>
+
+<p>1 star</p>
+<div class="bar"><div class="fill" style="width:6%"></div></div>
+
+<br>
+
+<h3>Customers say</h3>
+<p>
+Customers find this product premium and stylish. High price leads to moderate return probability.
+</p>
+
+<h3>Top reviews from India</h3>
+<p><b>D S KARTHI KEYAN</b></p>
+⭐⭐⭐⭐⭐ Good product  
+<p>Very good finish and quality. Worth buying.</p>
+
+<hr>
+
+<!-- ADD REVIEW -->
+<h3>Review this product</h3>
+
+<select id="rating">
+<option value="5">⭐⭐⭐⭐⭐</option>
+<option value="4">⭐⭐⭐⭐</option>
+<option value="3">⭐⭐⭐</option>
+<option value="2">⭐⭐</option>
+<option value="1">⭐</option>
+</select>
+
+<br><br>
+
+<textarea id="reviewText" placeholder="Write review..." style="width:100%; height:80px;"></textarea>
+
+<br><br>
+
+<button onclick="addReview()" class="btn">Submit Review</button>
+
+<div id="userReviews"></div>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+<div class="right">
+
+<h2 id="pName"></h2>
+<p class="price" id="pPrice"></p>
+
+<p>
+This premium product offers top-quality performance and durability.
+</p>
+
+<p>⭐⭐⭐⭐⭐ (4.8)</p>
+<p>🔥 1,250+ customers purchased</p>
+
+<!-- GRAPHS -->
+<div class="graph-box">
+
+<div class="chart-card">
+<h4>Return vs Purchase</h4>
+<canvas id="myChart"></canvas>
+</div>
+
+<div class="chart-card">
+<h4>Model Accuracy Comparison</h4>
+<canvas id="modelChart"></canvas>
+</div>
+
+</div>
+
+<p style="margin-top:20px;">
+⚠ Risk Prediction: <b id="riskText"></b>
+</p>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+// PRODUCT
+let product = JSON.parse(localStorage.getItem("selectedProduct"));
+
+document.getElementById("pName").innerText = product.name;
+document.getElementById("pPrice").innerText = "₹" + product.price;
+document.getElementById("pImg").src = product.image;
+
+// GRAPH 1
+new Chart(document.getElementById('myChart'), {
+type: 'doughnut',
+data: {
+labels: ['Purchase', 'Return'],
+datasets: [{
+data: [120, 40],
+backgroundColor: ['#00c6ff', '#ff2e7a']
+}]
+}
+});
+
+// GRAPH 2
+new Chart(document.getElementById('modelChart'), {
+type: 'bar',
+data: {
+labels: ['LR','DT','RF','KNN'],
+datasets: [{
+label:'Accuracy',
+data:[0.82,0.85,0.91,0.84],
+backgroundColor:['blue','green','orange','purple']
+}]
+}
+});
+
+// RISK
+let risk = product.price > 80000 ? "High Risk" :
+           product.price > 40000 ? "Moderate Risk" : "Low Risk";
+
+document.getElementById("riskText").innerText = risk;
+
+// CART
+function addToCart(){
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+cart.push(product);
+localStorage.setItem("cart", JSON.stringify(cart));
+alert("Added to cart");
+}
+
+// REVIEWS
+let userReviews = JSON.parse(localStorage.getItem("reviews")) || [];
+
+function displayReviews(){
+document.getElementById("userReviews").innerHTML =
+userReviews.map(r => `
+<div style="background:white; padding:10px; margin-top:10px; border-radius:10px;">
+<p>${"⭐".repeat(r.rating)}</p>
+<p>${r.text}</p>
+</div>
+`).join("");
+}
+
+function addReview(){
+let rating = document.getElementById("rating").value;
+let text = document.getElementById("reviewText").value;
+
+if(text==""){
+alert("Enter review");
+return;
+}
+
+userReviews.push({rating,text});
+localStorage.setItem("reviews", JSON.stringify(userReviews));
+
+document.getElementById("reviewText").value="";
+displayReviews();
+}
+
+displayReviews();
+
+</script>
+
+</body>
+</html>

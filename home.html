@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FitCheck</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+
+    <div class="left-icons">
+        <span onclick="toggleTheme()">🌙</span>
+        <span>🌐 🇮🇳</span>
+    </div>
+
+    <div class="right-icons">
+
+        <!-- HOME -->
+        <img src="https://cdn.pixabay.com/photo/2015/12/28/02/58/home-1110868_1280.png"
+        onclick="goHome()">
+
+        <!-- PROFILE -->
+        <div class="profile">
+            <img src="https://static.vecteezy.com/system/resources/previews/036/885/313/original/blue-profile-icon-free-png.png">
+
+            <div class="dropdown">
+                <p onclick="login()">Sign In</p>
+                <p onclick="signup()">Sign Up</p>
+                <p onclick="logout()">Logout</p>
+            </div>
+        </div>
+
+        <!-- CART -->
+        <img src="https://cdn0.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/shopping-circle-blue-512.png"
+        onclick="goCart()">
+
+    </div>
+
+</div>
+
+<!-- HERO -->
+<section class="hero">
+
+    <!-- SEARCH -->
+    <div class="search-box">
+        <input class="search" 
+        placeholder="Search for products (e.g. watch, shoes)" 
+        onkeydown="handleSearch(event)">
+        <img class="search-icon" src="https://static.vecteezy.com/system/resources/previews/013/083/235/original/search-ui-icon-png.png">
+    </div>
+
+    <h1 class="main-title">FitCheck</h1>
+
+   <p class="desc">
+FitCheck brings you premium fashion, stylish watches, modern electronics, and trendy footwear — all in one place.
+</p>
+
+    <button class="shop-btn" onclick="goShoes()">Shop Now</button>
+
+</section>
+
+<!-- CATEGORY -->
+<h2 class="category-title">Shop by Category</h2>
+
+<div class="categories">
+
+    <div class="category-card" onclick="goWatches()">
+        <img src="https://img.freepik.com/premium-photo/3d-watch-fashion-able-watch-new-watch-designs-4k-wallpaper-hd-wallpaper_1262886-3304.jpg">
+        <h3>Watches</h3>
+        <button>Explore</button>
+    </div>
+
+    <div class="category-card" onclick="goElectronics()">
+        <img src="https://images.tv9hindi.com/wp-content/uploads/2022/10/electronics.jpg">
+        <h3>Electronics</h3>
+        <button>Explore</button>
+    </div>
+
+    <div class="category-card" onclick="goShoes()">
+        <img src="https://static.vecteezy.com/system/resources/previews/022/255/712/non_2x/beautiful-shoes-generative-ai-free-photo.jpg">
+        <h3>Shoes</h3>
+        <button>Explore</button>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+
+<div class="footer-grid">
+
+<div>
+<h3>Get to Know Us</h3>
+<p>About FitCheck</p>
+<p>Careers</p>
+<p>Press Releases</p>
+<p>Our Story</p>
+</div>
+
+<div>
+<h3>Connect with Us</h3>
+<p>Contact Us</p>
+<p>Facebook</p>
+<p>Instagram</p>
+<p>Twitter</p>
+</div>
+
+<div>
+<h3>Customer Service</h3>
+<p>Help Center</p>
+<p>Returns</p>
+<p>Shipping Info</p>
+<p>Track Order</p>
+</div>
+
+</div>
+
+<p class="copyright">© 2026 FitCheck</p>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
